@@ -14,28 +14,28 @@
   stroke-linecap: round;
 }
  
-.airport-arcs {
+.inquiry-arcs {
   display: none;
   fill: none;
   stroke: #000;
 }
  
-.airport-cell {
+.inquiry-cell {
   fill: none;
   pointer-events: all;
 }
  
-.airports circle {
+.inquiries circle {
   fill: steelblue;
   stroke: #fff;
   pointer-events: none;
 }
  
-.airport:hover .airport-arcs {
+.inquiry:hover .inquiry-arcs {
   display: inline;
 }
  
-svg:not(:hover) .airport-cell {
+svg:not(:hover) .inquiry-cell {
   stroke: #000;
   stroke-opacity: .2;
 }
@@ -73,24 +73,24 @@ queue()
     .await(ready);
  
 function ready(error, us, inquiries, edgelist) {
-  var airportById = d3.map(),
+  var inquiryById = d3.map(),
       positions = [];
  
-  airports.forEach(function(d) {
-    airportById.set(d.name, d);
+  inquiries.forEach(function(d) {
+    inquiryById.set(d.name, d);
     d.outgoing = [];
     d.incoming = [];
   });
  
-  flights.forEach(function(edgelist) {
-    var source = airportById.get(edgelist.origin),
-        target = airportById.get(edgelist.destination),
+  edgelist.forEach(function(edgelist) {
+    var source = inquiryById.get(edgelist.origin),
+        target = inquiryById.get(edgelist.destination),
         link = {source: source, target: target};
     source.outgoing.push(link);
     target.incoming.push(link);
   });
  
-  airports = airports.filter(function(d) {
+  inquiries = inquiries.filter(function(d) {
     if (d.count = Math.max(d.incoming.length, d.outgoing.length)) {
       d[0] = +d.longitude;
       d[1] = +d.latitude;
@@ -101,7 +101,7 @@ function ready(error, us, inquiries, edgelist) {
     }
   });
  
-  voronoi(airports)
+  voronoi(inquiries)
       .forEach(function(d) { d.point.cell = d; });
  
   svg.append("path")
@@ -114,25 +114,25 @@ function ready(error, us, inquiries, edgelist) {
       .attr("class", "state-borders")
       .attr("d", path);
  
-  var airport = svg.append("g")
-      .attr("class", "airports")
+  var inquiry = svg.append("g")
+      .attr("class", "inquiries")
     .selectAll("g")
-      .data(airports.sort(function(a, b) { return b.count - a.count; }))
+      .data(inquiries.sort(function(a, b) { return b.count - a.count; }))
     .enter().append("g")
-      .attr("class", "airport");
+      .attr("class", "inquiry");
  
-  airport.append("path")
-      .attr("class", "airport-cell")
+  inquiry.append("path")
+      .attr("class", "inquiry-cell")
       .attr("d", function(d) { return d.cell.length ? "M" + d.cell.join("L") + "Z" : null; });
  
-  airport.append("g")
-      .attr("class", "airport-arcs")
+  inquiry.append("g")
+      .attr("class", "inquiry-arcs")
     .selectAll("path")
       .data(function(d) { return d.outgoing; })
     .enter().append("path")
       .attr("d", function(d) { return path({type: "LineString", coordinates: [d.source, d.target]}); });
  
-  airport.append("circle")
+  inquiry.append("circle")
       .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
       .attr("r", function(d, i) { return Math.sqrt(d.count); });
  
