@@ -77,7 +77,7 @@ function ready(error, us, airports, flights) {
       positions = [];
  
   airports.forEach(function(d) {
-    airportById.set(d.name, d);
+    airportById.set(d.iata, d);
     d.outgoing = [];
     d.incoming = [];
   });
