@@ -1,97 +1,141 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js?1.29.1"></script>
-    <style type="text/css">
-
-html, body, #map {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+<meta charset="utf-8">
+<style>
+ 
+.states {
+  fill: #ccc;
 }
-
-.stations, .stations svg {
-  position: absolute;
-}
-
-.stations svg {
-  width: 60px;
-  height: 20px;
-  padding-right: 100px;
-  font: 10px sans-serif;
-}
-
-.stations circle {
-  fill: brown;
-  stroke: black;
+ 
+.state-borders {
+  fill: none;
+  stroke: #fff;
   stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
-
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script type="text/javascript">
-
-// Create the Google Map…
-var map = new google.maps.Map(d3.select("#map").node(), {
-  zoom: 5,
-  center: new google.maps.LatLng(41.718957, -99.910792),
-  mapTypeId: google.maps.MapTypeId.ROADMAP
-});
-
-// Load the station data. When the data comes back, create an overlay.
-d3.json("stations.json", function(data) {
-  var overlay = new google.maps.OverlayView();
-
-  // Add the container when the overlay is added to the map.
-  overlay.onAdd = function() {
-    var layer = d3.select(this.getPanes().overlayLayer).append("div")
-        .attr("class", "stations");
-
-    // Draw each marker as a separate SVG element.
-    // We could use a single SVG, but what size would it have?
-    overlay.draw = function() {
-      var projection = this.getProjection(),
-          padding = 10;
-
-      var marker = layer.selectAll("svg")
-          .data(d3.entries(data))
-          .each(transform) // update existing markers
-        .enter().append("svg:svg")
-          .each(transform)
-          .attr("class", "marker");
-
-      // Add a circle.
-      marker.append("svg:circle")
-          .attr("r", 4.5)
-          .attr("cx", padding)
-          .attr("cy", padding);
-
-      // Add a label.
-      marker.append("svg:text")
-          .attr("x", padding + 7)
-          .attr("y", padding)
-          .attr("dy", ".31em")
-          .text(function(d) { return d.key; });
-
-      function transform(d) {
-        d = new google.maps.LatLng(d.value[1], d.value[0]);
-        d = projection.fromLatLngToDivPixel(d);
-        return d3.select(this)
-            .style("left", (d.x - padding) + "px")
-            .style("top", (d.y - padding) + "px");
-      }
-    };
-  };
-
-  // Bind our overlay to the map…
-  overlay.setMap(map);
-});
-
-    </script>
-  </body>
-</html>
+ 
+.airport-arcs {
+  display: none;
+  fill: none;
+  stroke: #000;
+}
+ 
+.airport-cell {
+  fill: none;
+  pointer-events: all;
+}
+ 
+.airports circle {
+  fill: steelblue;
+  stroke: #fff;
+  pointer-events: none;
+}
+ 
+.airport:hover .airport-arcs {
+  display: inline;
+}
+ 
+svg:not(:hover) .airport-cell {
+  stroke: #000;
+  stroke-opacity: .2;
+}
+ 
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+ 
+var width = 960,
+    height = 500;
+ 
+var projection = d3.geo.albers()
+    .translate([width / 2, height / 2])
+    .scale(1080);
+ 
+var path = d3.geo.path()
+    .projection(projection);
+ 
+var voronoi = d3.geom.voronoi()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; })
+    .clipExtent([[0, 0], [width, height]]);
+ 
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+ 
+queue()
+    .defer(d3.json, "/mbostock/raw/4090846/us.json")
+    .defer(d3.csv, "airports.csv")
+    .defer(d3.csv, "flights.csv")
+    .await(ready);
+ 
+function ready(error, us, airports, flights) {
+  var airportById = d3.map(),
+      positions = [];
+ 
+  airports.forEach(function(d) {
+    airportById.set(d.iata, d);
+    d.outgoing = [];
+    d.incoming = [];
+  });
+ 
+  flights.forEach(function(flight) {
+    var source = airportById.get(flight.origin),
+        target = airportById.get(flight.destination),
+        link = {source: source, target: target};
+    source.outgoing.push(link);
+    target.incoming.push(link);
+  });
+ 
+  airports = airports.filter(function(d) {
+    if (d.count = Math.max(d.incoming.length, d.outgoing.length)) {
+      d[0] = +d.longitude;
+      d[1] = +d.latitude;
+      var position = projection(d);
+      d.x = position[0];
+      d.y = position[1];
+      return true;
+    }
+  });
+ 
+  voronoi(airports)
+      .forEach(function(d) { d.point.cell = d; });
+ 
+  svg.append("path")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "states")
+      .attr("d", path);
+ 
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "state-borders")
+      .attr("d", path);
+ 
+  var airport = svg.append("g")
+      .attr("class", "airports")
+    .selectAll("g")
+      .data(airports.sort(function(a, b) { return b.count - a.count; }))
+    .enter().append("g")
+      .attr("class", "airport");
+ 
+  airport.append("path")
+      .attr("class", "airport-cell")
+      .attr("d", function(d) { return d.cell.length ? "M" + d.cell.join("L") + "Z" : null; });
+ 
+  airport.append("g")
+      .attr("class", "airport-arcs")
+    .selectAll("path")
+      .data(function(d) { return d.outgoing; })
+    .enter().append("path")
+      .attr("d", function(d) { return path({type: "LineString", coordinates: [d.source, d.target]}); });
+ 
+  airport.append("circle")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("r", function(d, i) { return Math.sqrt(d.count); });
+ 
+}
+ 
+</script>
