@@ -69,7 +69,7 @@ var svg = d3.select("body").append("svg")
 queue()
     .defer(d3.json, "http://ktho.github.io/us.json")
     .defer(d3.tsv, "http://ktho.github.io/airports.txt")
-    .defer(d3.tsv, "http://ktho.github.io/flights..txt")
+    .defer(d3.tsv, "http://ktho.github.io/flights.txt")
     .await(ready);
  
 function ready(error, us, airports, flights) {
