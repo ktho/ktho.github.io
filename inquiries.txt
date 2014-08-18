@@ -1,4 +1,4 @@
-Or. Name	Or. Lat	Or. Long	Weight
+name	latitude	longitude	weight
 Palm Springs	33.78364730369617	-116.46021872725468	21
 Mission Viejo	33.60509999999999	-117.644	2
 Calgary, AB	50.89019999999999	-113.9892	21
