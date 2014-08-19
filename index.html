@@ -149,10 +149,11 @@ d3.csv("flights.csv", function(flights) {
             return 10;
           })
         .attr("fill", function(d, i) {
-            console.log(d.iata)
-            if (d.iata === "Palm Springs") {
-              return "red";             
-            }
+            return red
+            //console.log(d.iata)
+            //if (d.iata === "Palm Springs") {
+              //return "red";             
+            //}
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
