@@ -124,13 +124,13 @@ d3.csv("flights.csv", function(flights) {
 
     var g = cells.selectAll("g")
         .data(airports)
-      .enter().append("svg:g");
+      .enter().append("svg:g")
         .attr("fill", function(d, i){
             if (d.iata === "Palm Springs") {
               return "red";             
             }
-            return "steelblue"
-        })
+            //return "steelblue"
+        });
 
     g.append("svg:path")
         .attr("class", "cell")
