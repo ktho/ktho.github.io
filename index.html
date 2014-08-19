@@ -124,13 +124,7 @@ d3.csv("flights.csv", function(flights) {
 
     var g = cells.selectAll("g")
         .data(airports)
-      .enter().append("svg:g")
-        .attr("fill", function(d, i){
-            if (d.iata === "Palm Springs") {
-              return "red";             
-            }
-            //return "steelblue"
-        });
+      .enter().append("svg:g");
 
     g.append("svg:path")
         .attr("class", "cell")
@@ -154,6 +148,10 @@ d3.csv("flights.csv", function(flights) {
             }
             return 10;
           })
+        .attr("fill", function(d, i) {
+            if (d.iata === "Palm Springs") {
+              return "red";             
+            }
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
