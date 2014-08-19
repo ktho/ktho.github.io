@@ -30,19 +30,19 @@ circle {
 #cells.voronoi path.cell {
   stroke: brown;
 }
-
+/*
 #cells g:hover path.arc {
   display: inherit;
 }
-
+*/
     </style>
   </head>
   <body>
     <h2>
-      <span>U.S. commercial airports</span>, 2008<br>
+      <span>U.S. commercial airports</span><br>
       great arcs and symbol map
     </h2>
-    <div style="position:absolute;bottom:0;font-size:18px;">
+    <div style="position:absolute;bottom:0;font-size:12px;">
       <input type="checkbox" id="voronoi"> <label for="voronoi">show Voronoi</label>
     </div>
     <script type="text/javascript" src="d3/d3.v3.min.js"></script>
@@ -72,9 +72,11 @@ var states = svg.append("svg:g")
 
 var circles = svg.append("svg:g")
     .attr("id", "circles");
+    .attr("r", 15);
 
 var cells = svg.append("svg:g")
     .attr("id", "cells");
+
 
 d3.select("input[type=checkbox]").on("change", function() {
   cells.classed("voronoi", this.checked);
@@ -141,7 +143,7 @@ d3.csv("flights.csv", function(flights) {
       .enter().append("svg:circle")
         .attr("cx", function(d, i) { return positions[i][0]; })
         .attr("cy", function(d, i) { return positions[i][1]; })
-        .attr("r", function(d, i) { return 30;})
+        //.attr("r", function(d, i) { return 30;})
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
   });
