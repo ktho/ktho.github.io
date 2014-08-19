@@ -72,7 +72,6 @@ var states = svg.append("svg:g")
 
 var circles = svg.append("svg:g")
     .attr("id", "circles");
-    .attr("r", 15);
 
 var cells = svg.append("svg:g")
     .attr("id", "cells");
@@ -143,7 +142,12 @@ d3.csv("flights.csv", function(flights) {
       .enter().append("svg:circle")
         .attr("cx", function(d, i) { return positions[i][0]; })
         .attr("cy", function(d, i) { return positions[i][1]; })
-        //.attr("r", function(d, i) { return 30;})
+        .attr("r", function(d, i) { 
+          if d.iata === "Palm Springs"
+            return 30;
+          else
+            return 10;
+          })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
   });
