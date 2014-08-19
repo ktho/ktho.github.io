@@ -125,6 +125,11 @@ d3.csv("flights.csv", function(flights) {
     var g = cells.selectAll("g")
         .data(airports)
       .enter().append("svg:g");
+        .attr("fill", function(d, i){
+            if (d.iata === "Palm Springs") {
+              return "red";             
+            }
+        })
 
     g.append("svg:path")
         .attr("class", "cell")
@@ -144,14 +149,10 @@ d3.csv("flights.csv", function(flights) {
         .attr("cy", function(d, i) { return positions[i][1]; })
         .attr("r", function(d, i) { 
             if (d.iata === "Palm Springs") {
-              return 30             
+              return 30;             
             }
             return 10;
           })
-        .attr("fill", function(d, i) {
-            if (d.iata === "Palm Springs") {
-              return "SandyBrown"            
-            } 
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
