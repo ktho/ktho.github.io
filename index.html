@@ -80,8 +80,6 @@ var cells = svg.append("svg:g")
     .attr("id", "cells");
 
 
-
-
 d3.select("input[type=checkbox]").on("change", function() {
   cells.classed("voronoi", this.checked);
 });
@@ -104,6 +102,7 @@ d3.csv("flights.csv", function(flights) {
       .target(function(d) { return locationByAirport[d.target]; });
 
   flights.forEach(function(flight) {
+    console.log(flight)
     var origin = flight.origin,
         destination = flight.destination,
         links = linksByOrigin[origin] || (linksByOrigin[origin] = []);
@@ -137,7 +136,7 @@ d3.csv("flights.csv", function(flights) {
         .on("mouseover", function(d, i) { d3.select("h2 span").text(d.name); });
 
     g.selectAll("path.arc")
-        .data(function(d) { console.log(d.iata);  console.log(linksByOrigin); return linksByOrigin[d.iata] || []; })
+        .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { return path(arc(d)); });
