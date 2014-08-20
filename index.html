@@ -65,7 +65,6 @@ var projection = d3.geo.albers()
 
 var path = d3.geo
       .path()
-      //.pointRadius(2)
       .projection(projection);
 
 var svg = d3.select("body").insert("svg:svg", "h2")
@@ -137,24 +136,7 @@ d3.csv("flights.csv", function(flights) {
         .attr("d", function(d, i) { return "M" + polygons[i].join("L") + "Z"; })
         .on("mouseover", function(d, i) { d3.select("h2 span").text(d.name); });
 
-    g.selectAll("path.arc")
-        .data(function(d) { return linksByOrigin[d.iata] || []; })
-      .enter().append("svg:path")
-        .attr("class", "arc")
-        .attr("type", "LineString")
-        .attr("coordinates", function(d, i) {
-          return [locationByAirport[d.source],locationByAirport[d.target]];
-          })
-        .attr("d", function(d) {console.log(path); return path;})
-        .style("stroke-width", function(d) { 
-            if (d.weight > 10) {
-              return Math.pow(d.weight, 0.25) + "px";
-              }
-              return 0
-            });
 
-
-/*
     g.selectAll("path.arc")
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
@@ -166,14 +148,7 @@ d3.csv("flights.csv", function(flights) {
               }
               return 0
             });
-*/
-/*
-    g.selectAll("path.arc")
-        .data(function(d) { return linksByOrigin[d.iata] || []; })
-      .enter().append("svg:path")
-        .attr("class", "arc")
-        .attr("d", function(d) { return path(arc(d)); });
-*/
+
 
     circles.selectAll("circle")
         .data(airports)
