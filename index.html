@@ -80,6 +80,8 @@ var cells = svg.append("svg:g")
     .attr("id", "cells");
 
 
+
+
 d3.select("input[type=checkbox]").on("change", function() {
   cells.classed("voronoi", this.checked);
 });
@@ -135,10 +137,15 @@ d3.csv("flights.csv", function(flights) {
         .on("mouseover", function(d, i) { d3.select("h2 span").text(d.name); });
 
     g.selectAll("path.arc")
+        .datum({type: "LineString", coordinates: [origin, destination]})
+        .attr("class", "arc")
+        .attr("d", path)
+    /*
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { return path(arc(d)); });
+    */
 
     circles.selectAll("circle")
         .data(airports)
