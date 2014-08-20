@@ -82,7 +82,7 @@ d3.select("input[type=checkbox]").on("change", function() {
   cells.classed("voronoi", this.checked);
 });
 
-d3.json("us.json", function(collection) {
+d3.json("us-states.json", function(collection) {
   states.selectAll("path")
       .data(collection.features)
     .enter().append("svg:path")
@@ -136,7 +136,7 @@ d3.csv("flights.csv", function(flights) {
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
-        .attr("d", function(d) { return path(arc(d)); });
+        .attr("d", function(d) { console.log(path(arc(d)); return path(arc(d)); });
 
     circles.selectAll("circle")
         .data(airports)
