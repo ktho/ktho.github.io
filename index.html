@@ -143,7 +143,7 @@ d3.csv("flights.csv", function(flights) {
         .attr("type", "LineString")
         .attr("coordinates", function(d, i) {
           console.log(locationByAirport(d[source]));
-          console.log(locationByAirport(d[target]);
+          console.log(locationByAirport(d[target]));
           })
         .attr("class", "arc")
         .attr("d", path)
