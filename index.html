@@ -82,7 +82,7 @@ d3.select("input[type=checkbox]").on("change", function() {
   cells.classed("voronoi", this.checked);
 });
 
-d3.json("us-states.json", function(collection) {
+d3.json("us.json", function(collection) {
   states.selectAll("path")
       .data(collection.features)
     .enter().append("svg:path")
