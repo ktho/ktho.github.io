@@ -142,7 +142,7 @@ d3.csv("flights.csv", function(flights) {
         .attr("d", function(d) { console.log(d); return path(arc(d)); })
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
-              return d.weight + "px";
+              return Math.pow(d.weight, 0.25) + "px";
               }
               return 0
             });
