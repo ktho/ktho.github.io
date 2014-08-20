@@ -81,7 +81,6 @@ var circles = svg.append("svg:g")
 var cells = svg.append("svg:g")
     .attr("id", "cells");
 
-
 d3.select("input[type=checkbox]").on("change", function() {
   cells.classed("voronoi", this.checked);
 });
@@ -142,7 +141,7 @@ d3.csv("flights.csv", function(flights) {
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
-        .attr("d", function(d) { return path(arc(d)); })
+        .attr("d", function(d) { console.log(d.iata); return path(arc(d)); })
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
               return Math.pow(d.weight, 0.25) + "px";
