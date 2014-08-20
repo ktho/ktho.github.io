@@ -99,7 +99,7 @@ d3.csv("flights.csv", function(flights) {
       positions = [];
 
   var arc = d3.geo.greatArc()
-      .source(function(d) { return locationByAirport[d.source]; })
+      .source(function(d) { console.log(d.source); return locationByAirport[d.source]; })
       .target(function(d) { return locationByAirport[d.target]; });
 
   flights.forEach(function(flight) {
