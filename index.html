@@ -65,7 +65,7 @@ var projection = d3.geo.albers()
 
 var path = d3.geo
       .path()
-      //.pointRadius(2)
+      .pointRadius(2)
       .projection(projection);
 
 var svg = d3.select("body").insert("svg:svg", "h2")
@@ -140,6 +140,24 @@ d3.csv("flights.csv", function(flights) {
     g.selectAll("path.arc")
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
+        .datum("type", "LineString")
+        .datum("coordinates", function(d) {
+          console.log(d)    
+          })
+        .attr("class", "arc")
+        .attr("d", path)
+        .style("stroke-width", function(d) { 
+            if (d.weight > 10) {
+              return Math.pow(d.weight, 0.25) + "px";
+              }
+              return 0
+            });
+
+
+/*
+    g.selectAll("path.arc")
+        .data(function(d) { return linksByOrigin[d.iata] || []; })
+      .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { console.log(d); return path(arc(d)); })
         .style("stroke-width", function(d) { 
@@ -148,7 +166,7 @@ d3.csv("flights.csv", function(flights) {
               }
               return 0
             });
-
+*/
 /*
     g.selectAll("path.arc")
         .data(function(d) { return linksByOrigin[d.iata] || []; })
