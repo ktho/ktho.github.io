@@ -122,7 +122,7 @@ d3.csv("flights.csv", function(flights) {
         var location = [+airport.longitude, +airport.latitude];
         locationByAirport[airport.iata] = location;
         positions.push(projection(location));
-        positionsByAirport.push({iata: airport.iata, latitude=airport.latitude, longitude = airport.latitude});
+        positionsByAirport.push({iata: airport.iata, location:projection(location), latitude:airport.latitude, longitude: airport.latitude});
         console.log(positionsByAirport);
         return true;
       }
