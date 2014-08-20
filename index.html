@@ -105,8 +105,9 @@ d3.csv("flights.csv", function(flights) {
     console.log(flight)
     var origin = flight.origin,
         destination = flight.destination,
+        wt = flight.count
         links = linksByOrigin[origin] || (linksByOrigin[origin] = []);
-    links.push({source: origin, target: destination});
+    links.push({source: origin, target: destination, weight: wt});
     countByAirport[origin] = (countByAirport[origin] || 0) + 1;
     countByAirport[destination] = (countByAirport[destination] || 0) + 1;
   });
@@ -139,7 +140,8 @@ d3.csv("flights.csv", function(flights) {
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
-        .attr("d", function(d) { return path(arc(d)); });
+        .attr("d", function(d) { return path(arc(d)); })
+        .style("stroke-width", function(d){d.weight});
 
 
 /*
