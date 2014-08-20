@@ -137,23 +137,19 @@ d3.csv("flights.csv", function(flights) {
         .on("mouseover", function(d, i) { d3.select("h2 span").text(d.name); });
 
     g.selectAll("path.arc")
-         .data(function(d) { return linksByOrigin[d.iata] || []; })
+        .data(function(d) { console.log(d.iata);  console.log(linksByOrigin); return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
-        .attr("d", function(d) {
-            var dx = d.target[0] - d.source[0],
-            dy = d.target[1] - d.source[1],
-            dr = Math.sqrt(dx * dx + dy * dy);
-            return "M" + d.source[0] + "," + d.source[1] + "A" + dr + "," + dr +" 0 0,1 " + d.target[0] + "," + d.target[1];
-            });
-        //.attr("d", function(d) { return path(arc(d)); });       
-        /*
-        .datum({type: "LineString", coordinates: [origin, destination]})
+        .attr("d", function(d) { return path(arc(d)); });
+
+
+/*
+    g.selectAll("path.arc")
+        .data(function(d) { return linksByOrigin[d.iata] || []; })
+      .enter().append("svg:path")
         .attr("class", "arc")
-        .attr("d", path)
-        */
-
-
+        .attr("d", function(d) { return path(arc(d)); });
+*/
 
     circles.selectAll("circle")
         .data(airports)
