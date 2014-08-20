@@ -63,7 +63,7 @@ var projection = d3.geo.albersUsa()
 
 var path = d3.geo
       .path()
-      .pointRadius(2)
+      //.pointRadius(2)
       .projection(projection);
 
 var svg = d3.select("body").insert("svg:svg", "h2")
@@ -140,7 +140,6 @@ d3.csv("flights.csv", function(flights) {
          .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
-        .attr("type", "LineString")
         .attr("d", function(d) {
             var dx = d.target[0] - d.source[0],
             dy = d.target[1] - d.source[1],
