@@ -140,11 +140,11 @@ d3.csv("flights.csv", function(flights) {
     g.selectAll("path.arc")
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
+        .attr("class", "arc")
         .attr("type", "LineString")
         .attr("coordinates", function(d, i) {
           return [locationByAirport[d.source],locationByAirport[d.target]];
           })
-        .attr("class", "arc")
         .attr("d", path)
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
