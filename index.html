@@ -141,7 +141,7 @@ d3.csv("flights.csv", function(flights) {
         .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .datum("type", "LineString")
-        .datum("coordinates", function(d) {
+        .datum("coordinates", function(d, i) {
           console.log(d);    
           })
         .attr("class", "arc")
