@@ -67,7 +67,7 @@ var svg = d3.select("body").append("svg")
     .attr("height", height);
 
 queue()
-    .defer(d3.json, "/mbostock/raw/4090846/us.json")
+    .defer(d3.json, "us.json")
     .defer(d3.csv, "airports.csv")
     .defer(d3.csv, "flights.csv")
     .await(ready);
