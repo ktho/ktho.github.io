@@ -140,8 +140,12 @@ d3.csv("flights.csv", function(flights) {
       .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { console.log(d); return path(arc(d)); })
-        .style("stroke-width", function(d){d.weight});
-
+        .style("stroke-width", function(d) { 
+            if (d.weight > 10) {
+              return d.weight + "px";
+              }
+              return 0
+            });
 
 /*
     g.selectAll("path.arc")
