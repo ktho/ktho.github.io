@@ -96,7 +96,9 @@ d3.csv("flights.csv", function(flights) {
   var linksByOrigin = {},
       countByAirport = {},
       locationByAirport = {},
+      positionsByAirport = {},  //airport name and longitude/latitude
       positions = [];
+
 
   var arc = d3.geo.greatArc()
       .source(function(d) { return locationByAirport[d.source]; })
@@ -120,7 +122,8 @@ d3.csv("flights.csv", function(flights) {
         var location = [+airport.longitude, +airport.latitude];
         locationByAirport[airport.iata] = location;
         positions.push(projection(location));
-        console.log(positions)
+        positionsByAirport.push({iata: airport.iata, location=projection(location), latitude=airport.latitude, longitude = airport.latitude})
+        console.log(positionsByAirport)
         return true;
       }
     });
