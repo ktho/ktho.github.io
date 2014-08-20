@@ -1,169 +1,140 @@
-
 <!DOCTYPE html>
-<html>
-  <head>
-    <style type="text/css">
+<meta charset="utf-8">
+<style>
 
-#states path {
+.states {
   fill: #ccc;
-  stroke: #fff;
 }
 
-path.arc {
-  pointer-events: none;
+.state-borders {
   fill: none;
-  fill-opacity: 0.7;
-  stroke: #686868;
-  display: inherit;
-  /*display: none;*/
+  stroke: #fff;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
-path.cell {
+.airport-arcs {
+  display: none;
+  fill: none;
+  stroke: #000;
+}
+
+.airport-cell {
   fill: none;
   pointer-events: all;
 }
 
-circle {
+.airports circle {
   fill: steelblue;
-  fill-opacity: .8;
   stroke: #fff;
+  pointer-events: none;
 }
 
-#cells.voronoi path.cell {
-  stroke: brown;
+.airport:hover .airport-arcs {
+  display: inline;
 }
 
-/*
-#cells g:hover path.arc {
-  display: inherit;
+svg:not(:hover) .airport-cell {
+  stroke: #000;
+  stroke-opacity: .2;
 }
-*/
-    </style>
-  </head>
-  <body>
-    <h2>
-      <span>Inquiry Locations</span><br>
-      <span>Locations</span><br>
-      great arcs and symbol map
-    </h2>
-    <div style="position:absolute;bottom:0;font-size:12px;">
-      <input type="checkbox" id="voronoi"> <label for="voronoi">show Voronoi</label>
-    </div>
-    <script type="text/javascript" src="d3/d3.v3.min.js"></script>
-    <script type="text/javascript" src="d3/d3.csv.js"></script>
-    <script type="text/javascript" src="d3/d3.geo.js"></script>
-    <script type="text/javascript" src="d3/d3.geom.js"></script>
-    <script type="text/javascript">
 
-var w = 960,
-    h = 500;
+</style>
+<body>
+<script type "text/javascript" src="d3/d3.v3.min.js"></script>
+<script type "text/javascript" src="d3/queue.v1.min.js"></script>
+<script type "text/javascript" src="d3/topojson.v1.min.js"></script>
+<script>
 
-//var projection = d3.geo.albersUsa()
+var width = 960,
+    height = 500;
+
 var projection = d3.geo.albers()
-    .scale(1000)
-    .translate([w/2, h/2]);
+    .translate([width / 2, height / 2])
+    .scale(1080);
 
-var path = d3.geo
-      .path()
-      //.pointRadius(2)
-      .projection(projection);
+var path = d3.geo.path()
+    .projection(projection);
 
-var svg = d3.select("body").insert("svg:svg", "h2")
-    .attr("width", w)
-    .attr("height", h);
+var voronoi = d3.geom.voronoi()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; })
+    .clipExtent([[0, 0], [width, height]]);
 
-var states = svg.append("svg:g")
-    .attr("id", "states");
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
-var circles = svg.append("svg:g")
-    .attr("id", "circles");
+queue()
+    .defer(d3.json, "/mbostock/raw/4090846/us.json")
+    .defer(d3.csv, "airports.csv")
+    .defer(d3.csv, "flights.csv")
+    .await(ready);
 
-var cells = svg.append("svg:g")
-    .attr("id", "cells");
-
-
-d3.select("input[type=checkbox]").on("change", function() {
-  cells.classed("voronoi", this.checked);
-});
-
-d3.json("us-states.json", function(collection) {
-  states.selectAll("path")
-      .data(collection.features)
-    .enter().append("svg:path")
-      .attr("d", path);
-});
-
-d3.csv("flights.csv", function(flights) {
-  var linksByOrigin = {},
-      countByAirport = {},
-      locationByAirport = {},
+function ready(error, us, airports, flights) {
+  var airportById = d3.map(),
       positions = [];
 
-
-  var arc = d3.geo.greatArc()
-      .source(function(d) { return locationByAirport[d.source]; })
-      .target(function(d) { return locationByAirport[d.target]; });
-
-  flights.forEach(function(flight) {
-    var origin = flight.origin,
-        destination = flight.destination,
-        wt = flight.count
-        links = linksByOrigin[origin] || (linksByOrigin[origin] = []);
-    links.push({source: origin, target: destination, weight: wt});
-    countByAirport[origin] = (countByAirport[origin] || 0) + 1;
-    countByAirport[destination] = (countByAirport[destination] || 0) + 1;
+  airports.forEach(function(d) {
+    airportById.set(d.iata, d);
+    d.outgoing = [];
+    d.incoming = [];
   });
 
-  d3.csv("airports.csv", function(airports) {
+  flights.forEach(function(flight) {
+    var source = airportById.get(flight.origin),
+        target = airportById.get(flight.destination),
+        link = {source: source, target: target};
+    source.outgoing.push(link);
+    target.incoming.push(link);
+  });
 
-    // Only consider airports with at least one flight.
-    airports = airports.filter(function(airport) {
-      if (countByAirport[airport.iata]) {
-        var location = [+airport.longitude, +airport.latitude];
-        locationByAirport[airport.iata] = location;
-        positions.push(projection(location));
-        return true;
-      }
-    });
+  airports = airports.filter(function(d) {
+    if (d.count = Math.max(d.incoming.length, d.outgoing.length)) {
+      d[0] = +d.longitude;
+      d[1] = +d.latitude;
+      var position = projection(d);
+      d.x = position[0];
+      d.y = position[1];
+      return true;
+    }
+  });
 
-    // Compute the Voronoi diagram of airports' projected positions.
-    var polygons = d3.geom.voronoi(positions);
+  voronoi(airports)
+      .forEach(function(d) { d.point.cell = d; });
 
-    var g = cells.selectAll("g")
-        .data(airports)
-      .enter().append("svg:g");
+  svg.append("path")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "states")
+      .attr("d", path);
 
-    g.append("svg:path")
-        .attr("class", "cell")
-        .attr("d", function(d, i) { return "M" + polygons[i].join("L") + "Z"; })
-        .on("mouseover", function(d, i) { d3.select("h2 span").text(d.name); });
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "state-borders")
+      .attr("d", path);
 
-    g.selectAll("path.arc")
-        .data(function(d) { return linksByOrigin[d.iata] || []; })
-      .enter().append("svg:path")
-        .attr("class", "arc")
-        .attr("d", function(d) { return path(arc(d)); })
-        .style("stroke-width", function(d) { 
-            if (d.weight > 10) {
-              return Math.pow(d.weight, 0.25) + "px";
-              }
-              return 0
-            });
+  var airport = svg.append("g")
+      .attr("class", "airports")
+    .selectAll("g")
+      .data(airports.sort(function(a, b) { return b.count - a.count; }))
+    .enter().append("g")
+      .attr("class", "airport");
 
-/*
-    g.selectAll("path.arc")
-        .data(function(d) { return linksByOrigin[d.iata] || []; })
-      .enter().append("svg:path")
-        .attr("class", "arc")
-        .attr("d", function(d) { return path(arc(d)); });
-*/
+  airport.append("path")
+      .attr("class", "airport-cell")
+      .attr("d", function(d) { return d.cell.length ? "M" + d.cell.join("L") + "Z" : null; });
 
-    circles.selectAll("circle")
-        .data(airports)
-      .enter().append("svg:circle")
-        .attr("cx", function(d, i) { return positions[i][0]; })
-        .attr("cy", function(d, i) { return positions[i][1]; })
-        .attr("r", function(d, i) { 
+  airport.append("g")
+      .attr("class", "airport-arcs")
+    .selectAll("path")
+      .data(function(d) { return d.outgoing; })
+    .enter().append("path")
+      .attr("d", function(d) { return path({type: "LineString", coordinates: [d.source, d.target]}); });
+
+  airport.append("circle")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+      .attr("r", function(d, i) { 
             if (d.iata === "Palm Springs") {
               return 20;             
             }
@@ -174,11 +145,8 @@ d3.csv("flights.csv", function(flights) {
               return "sandybrown";             
             }
         })
-        //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
-        .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
-  });
-});
+      //.attr("r", function(d, i) { return Math.sqrt(d.count); });
 
-    </script>
-  </body>
-</html>
+}
+
+</script>
