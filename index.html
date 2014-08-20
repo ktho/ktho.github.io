@@ -142,7 +142,7 @@ d3.csv("flights.csv", function(flights) {
       .enter().append("svg:path")
         .datum("type", "LineString")
         .datum("coordinates", function(d) {
-          console.log(d)    
+          console.log(d);    
           })
         .attr("class", "arc")
         .attr("d", path)
