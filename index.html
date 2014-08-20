@@ -12,7 +12,7 @@
 path.arc {
   pointer-events: none;
   fill: none;
-  stroke: #C0C0C0;
+  stroke: #686868;
   display: inherit;
   /*display: none;*/
 }
@@ -61,8 +61,10 @@ var projection = d3.geo.albersUsa()
     .scale(1000)
     .translate([w/2, h/2]);
 
-var path = d3.geo.path()
-    .projection(projection);
+var path = d3.geo
+      .path()
+      .pointRadius(2)
+      .projection(projection);
 
 var svg = d3.select("body").insert("svg:svg", "h2")
     .attr("width", w)
