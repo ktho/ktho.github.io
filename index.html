@@ -140,8 +140,9 @@ d3.csv("flights.csv", function(flights) {
          .data(function(d) { return linksByOrigin[d.iata] || []; })
       .enter().append("svg:path")
         .attr("class", "arc")
-        .type("LineString")
-        .attr("d", function(d) { return path(arc(d)); });       
+        .attr("type", "LineString")
+        .attr("d", "path")
+        //.attr("d", function(d) { return path(arc(d)); });       
         /*
         .datum({type: "LineString", coordinates: [origin, destination]})
         .attr("class", "arc")
