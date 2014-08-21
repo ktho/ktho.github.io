@@ -144,7 +144,7 @@ d3.tsv("flights.tsv", function(flights) {
         .attr("d", function(d) { console.log(d); return path(arc(d)); })
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
-              return d.weight + "px";
+              return (d.weight/2) + "px";
               }
               return 0
             });
