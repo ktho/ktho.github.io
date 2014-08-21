@@ -22,7 +22,7 @@ path.cell {
   pointer-events: all;
 }
 
-circle {
+path.circle {
   fill: steelblue;
   fill-opacity: .8;
   stroke: #fff;
@@ -40,7 +40,7 @@ circle {
   display: inherit;
 }
 
-#cells g:hover circle {
+#cells g:hover path.circle {
   fill: red;
 }
 
@@ -156,7 +156,7 @@ d3.tsv("flights.tsv", function(flights) {
             });
 
 
-    circles.selectAll("circle")
+    circles.selectAll("path.circle")
         .data(airports)
       .enter().append("svg:circle")
         .attr("cx", function(d, i) { return positions[i][0]; })
