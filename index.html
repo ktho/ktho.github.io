@@ -23,7 +23,7 @@ path.cell {
 }
 
 circle {
-  fill: sandybrown;
+  fill: #0000FF;
   fill-opacity: .8;
   stroke: #fff;
 }
@@ -56,7 +56,7 @@ circle {
     <script type="text/javascript">
 
 var w = 1344,
-    h = 700;
+    h = ;
 
 //var projection = d3.geo.albersUsa()
 var projection = d3.geo.albers()
@@ -163,7 +163,7 @@ d3.tsv("flights.tsv", function(flights) {
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
-              return "#556B2F";             
+              return "darkgreen";             
             }
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
