@@ -160,7 +160,7 @@ d3.tsv("flights.tsv", function(flights) {
               return 10;             
             }
             console.log(d)
-            return 10*Math.sqrt([d.weight]);
+            return Math.sqrt([d.count]);
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
