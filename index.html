@@ -14,8 +14,7 @@ path.arc {
   fill: #00008B;
   stroke-opacity: 0.4;
   stroke: #00008B;
-  display: inherit;
-  /*display: none;*/
+  display: none;
 }
 
 path.cell {
@@ -156,14 +155,14 @@ d3.tsv("flights.tsv", function(flights) {
         .attr("cy", function(d, i) { return positions[i][1]; })
         .attr("r", function(d, i) { 
             if (d.iata === "Palm Springs") {
-              return 30;             
+              return 15;             
             }
             console.log(d)
-            return Math.sqrt([d.count])/2;
+            return Math.sqrt([d.count])/1.5;
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
-              return "sandybrown";             
+              return "brown";             
             }
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
