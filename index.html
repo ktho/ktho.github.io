@@ -23,7 +23,7 @@ path.cell {
 }
 
 circle {
-  fill: #0000FF;
+  fill: sandybrown;
   fill-opacity: .8;
   stroke: #fff;
 }
@@ -163,7 +163,7 @@ d3.tsv("flights.tsv", function(flights) {
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
-              return "darkgreen";             
+              return "#556B2F";             
             }
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
