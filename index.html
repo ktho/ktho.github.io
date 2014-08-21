@@ -22,7 +22,7 @@ path.cell {
   pointer-events: all;
 }
 
-path.circle {
+circle {
   fill: steelblue;
   fill-opacity: .8;
   stroke: #fff;
@@ -39,11 +39,6 @@ path.circle {
   stroke: #FF4500;
   display: inherit;
 }
-
-#cells g:hover path.circle {
-  fill: red;
-}
-
 
     </style>
   </head>
@@ -82,7 +77,7 @@ var states = svg.append("svg:g")
     .attr("id", "states");
 
 var circles = svg.append("svg:g")
-    .attr("id", "path.circles");
+    .attr("id", "circles");
 
 var cells = svg.append("svg:g")
     .attr("id", "cells");
@@ -156,7 +151,7 @@ d3.tsv("flights.tsv", function(flights) {
             });
 
 
-    circles.selectAll("path.circle")
+    circles.selectAll("circle")
         .data(airports)
       .enter().append("svg:circle")
         .attr("cx", function(d, i) { return positions[i][0]; })
