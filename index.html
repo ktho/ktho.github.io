@@ -56,7 +56,7 @@ circle {
     <script type="text/javascript">
 
 var w = 1344,
-    h = ;
+    h = 700;
 
 //var projection = d3.geo.albersUsa()
 var projection = d3.geo.albers()
@@ -143,7 +143,7 @@ d3.tsv("flights.tsv", function(flights) {
         .attr("d", function(d) { return path(arc(d)); })
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
-              return (d.weight/10) + "px";
+              return (d.weight/11) + "px";
               }
               return 0
             });
@@ -159,7 +159,7 @@ d3.tsv("flights.tsv", function(flights) {
               return 15;             
             }
             console.log(d)
-            return Math.sqrt([d.count])/1.5;
+            return Math.sqrt([d.count])/1.25;
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
