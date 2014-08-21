@@ -144,7 +144,7 @@ d3.tsv("flights.tsv", function(flights) {
         .attr("d", function(d) { console.log(d); return path(arc(d)); })
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
-              return Math.pow(d.weight, 0.25) + "px";
+              return d.weight + "px";
               }
               return 0
             });
@@ -157,7 +157,7 @@ d3.tsv("flights.tsv", function(flights) {
         .attr("cy", function(d, i) { return positions[i][1]; })
         .attr("r", function(d, i) { 
             if (d.iata === "Palm Springs") {
-              return 20;             
+              return 10;             
             }
             return 5;
           })
