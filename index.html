@@ -157,7 +157,7 @@ d3.tsv("flights.tsv", function(flights) {
         .attr("cy", function(d, i) { return positions[i][1]; })
         .attr("r", function(d, i) { 
             if (d.iata === "Palm Springs") {
-              return 10;             
+              return 30;             
             }
             console.log(d)
             return Math.sqrt([d.count]);
