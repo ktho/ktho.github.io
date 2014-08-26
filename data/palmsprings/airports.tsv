@@ -1,17 +1,13 @@
 iata	name	city	state	country	latitude	longitude	count
-Palm Springs	Palm Springs, CA United States, 92262	Palm Springs	CA	United States	33.78364730369617	-116.46021872725468	0
-Portland	Portland, OR United States, 	Portland	OR	United States	45.52340000000001	-122.6762	44
-Cathedral City	Cathedral City, CA United States, 92234	Cathedral City	CA	United States	33.82050000000001	-116.45859999999999	96
-Palm Springs	Palm Springs, CA United States, 92264	Palm Springs	CA	United States	33.72800000000001	-116.5116	0
-Los Angeles	Los Angeles, CA United States, 	Los Angeles	CA	United States	34.0522	-118.24369999999999	332
-Vancouver, BC	Vancouver, BC Canada, V6J	Vancouver	BC	Canada	49.27680000000001	-123.1469	52
-Calgary, AB	Calgary, AB Canada, 	Calgary	AB	Canada	51.08330000000001	-114.0833	23
-Seattle	Seattle, WA United States, 	Seattle	WA	United States	47.6062	-122.3321	28
-San Carlos	San Carlos, CA United States, 94070	San Carlos	CA	United States	37.49799999999999	-122.2672	70
-Aliso Viejo	Aliso Viejo, CA United States, 92656	Aliso Viejo	CA	United States	33.57169999999999	-117.72890000000001	75
-New York	New York, NY United States, 	New York	NY	United States	40.71430000000001	-74.006	20
-Redlands	Redlands, CA United States, 92374	Redlands	CA	United States	34.06139999999999	-117.1734	40
-Palm Springs	Palm Springs, CA United States, 	Palm Springs	CA	United States	33.830299999999994	-116.5453	0
-San Marcos	San Marcos, CA United States, 	San Marcos	CA	United States	33.143400000000014	-117.1661	81
-Atlanta	Atlanta, GA United States, 30309	Atlanta	GA	United States	33.798100000000005	-84.3877	112
-Brentwood	Brentwood, CA United States, 94513	Brentwood	CA	United States	37.87540000000001	-121.6868	32
+Los Angeles	Los Angeles, CA United States	Los Angeles	CA	United States	34.0522342	-118.2436849	491
+Palm Springs	Palm Springs, CA United States	Palm Springs	CA	United States	33.8302961	-116.5452921	95
+San Diego	San Diego, CA United States	San Diego	CA	United States	32.7153292	-117.1572551	88
+San Francisco	San Francisco, CA United States	San Francisco	CA	United States	37.3393857	-121.8949555	111
+Atlanta	Atlanta, GA United States	Atlanta	GA	United States	33.7489954	-84.3879824	112
+New York	New York, NY United States	New York	NY	United States	40.7142691	-74.0059729	33
+Portland	Portland, OR United States	Portland	OR	United States	45.5234515	-122.6762071	58
+Philadelphia	Philadelphia, PA United States	Philadelphia	PA	United States	39.952335	-75.163789	30
+Seattle	Seattle, WA United States	Seattle	WA	United States	47.2528768	-122.4442906	34
+Calgary, AB	Calgary, AB Canada	Calgary	AB	Canada	50.89019999999999	-113.9892	21
+Vancouver, BC	Vancouver, BC Canada	Vancouver	BC	Canada	49.27680000000001	-123.1469	52
+Other	Other	Other	Other	Other	33.8302961	-116.5452921	82
