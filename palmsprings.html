@@ -92,7 +92,7 @@ d3.json("us-states.json", function(collection) {
       .attr("d", path);
 });
 
-d3.tsv("flights.tsv", function(flights) {
+d3.tsv("/data/palmsprings/flights.tsv", function(flights) {
   var linksByOrigin = {},
       countByAirport = {},
       locationByAirport = {},
@@ -113,7 +113,7 @@ d3.tsv("flights.tsv", function(flights) {
     countByAirport[destination] = (countByAirport[destination] || 0) + 1;
   });
 
-  d3.tsv("airports.tsv", function(airports) {
+  d3.tsv("/data/palmsprings/airports.tsv", function(airports) {
 
     // Only consider airports with at least one flight.
     airports = airports.filter(function(airport) {
