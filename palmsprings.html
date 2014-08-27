@@ -193,9 +193,14 @@ var usstatesjson = [
 
 ];
 
-console.log(usstatesjson)
+console.log(usstatesjson);
 
+states.selectAll("path")
+    .data(usstatesjson)
+  .enter().append("svg:path")
+    .attr("d", path);
 
+/*
 d3.json("us-states.json", function(collection) { 
   states.selectAll("path")
       .data(collection.features)
@@ -203,7 +208,7 @@ d3.json("us-states.json", function(collection) {
       .attr("d", path);
     console.log(collection.features)
 });
-
+*/
 
 var airports=[
     {iata: 'Los Angeles', latitude:34.0522342, longitude:-118.2436849, count:491}
