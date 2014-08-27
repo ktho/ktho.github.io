@@ -236,30 +236,30 @@ states.selectAll("path")
     .attr("d", path);
 
 var airports=[
-    {iata: 'Los Angeles', latitude:34.0522342, longitude:-118.2436849, count:491}
-    ,{iata: 'Palm Springs', latitude:33.8302961, longitude:-116.5452921, count:95}
-    ,{iata: 'San Diego', latitude:32.7153292, longitude:-117.1572551, count:88}
-    ,{iata: 'San Francisco', latitude:37.3393857, longitude:-121.8949555, count:111}
-    ,{iata: 'Atlanta', latitude:33.7489954, longitude:-84.3879824, count:112}
-    ,{iata: 'New York', latitude:40.7142691, longitude:-74.0059729, count:33}
-    ,{iata: 'Portland', latitude:45.5234515, longitude:-122.6762071, count:58}
-    ,{iata: 'Philadelphia', latitude:39.952335, longitude:-75.163789, count:30}
-    ,{iata: 'Seattle', latitude:47.2528768, longitude:-122.4442906, count:34}
-    ,{iata: 'Calgary, AB', latitude:50.89019999999999, longitude:-113.9892, count:21}
-    ,{iata: 'Vancouver, BC', latitude:49.27680000000001, longitude:-123.1469, count:52}
+    {iata: 'Los Angeles', latitude:34.0522342, longitude:-118.2436849, count:491, perc: 48.5}
+    ,{iata: 'Palm Springs', latitude:33.8302961, longitude:-116.5452921, count:0, perc: 0}
+    ,{iata: 'San Diego', latitude:32.7153292, longitude:-117.1572551, count:88, perc: 8.7}
+    ,{iata: 'San Francisco', latitude:37.3393857, longitude:-121.8949555, count:111, perc: 1.1}
+    ,{iata: 'Atlanta', latitude:33.7489954, longitude:-84.3879824, count:112, perc: 11.1}
+    ,{iata: 'New York', latitude:40.7142691, longitude:-74.0059729, count:33, perc: 3.3}
+    ,{iata: 'Portland', latitude:45.5234515, longitude:-122.6762071, count:58, perc: 5.7}
+    ,{iata: 'Philadelphia', latitude:39.952335, longitude:-75.163789, count:30, perc: 3.0}
+    ,{iata: 'Seattle', latitude:47.2528768, longitude:-122.4442906, count:34, perc: 3.4}
+    ,{iata: 'Calgary, AB', latitude:50.89019999999999, longitude:-113.9892, count:21, perc: 2.1}
+    ,{iata: 'Vancouver, BC', latitude:49.27680000000001, longitude:-123.1469, count:52, perc: 5.1}
     ];
 
 var flights=[
-    {origin: 'Los Angeles', destination:'Palm Springs', weight:37.77}
-    ,{origin: 'San Diego', destination:'Palm Springs', weight:6.77}
-    ,{origin: 'San Francisco', destination:'Palm Springs', weight:0.846}
-    ,{origin: 'Atlanta', destination:'Palm Springs', weight:8.62}
-    ,{origin: 'New York', destination:'Palm Springs', weight:2.54}
-    ,{origin: 'Portland', destination:'Palm Springs', weight:4.46}
-    ,{origin: 'Philadelphia', destination:'Palm Springs', weight:2.31}
-    ,{origin: 'Seattle', destination:'Palm Springs', weight:2.62}
-    ,{origin: 'Calgary, AB', destination:'Palm Springs', weight:1.62}
-    ,{origin: 'Vancouver, BC', destination:'Palm Springs', weight:4}
+    {origin: 'Los Angeles', destination:'Palm Springs', weight:491}
+    ,{origin: 'San Diego', destination:'Palm Springs', weight:88}
+    ,{origin: 'San Francisco', destination:'Palm Springs', weight:111}
+    ,{origin: 'Atlanta', destination:'Palm Springs', weight:112}
+    ,{origin: 'New York', destination:'Palm Springs', weight:33}
+    ,{origin: 'Portland', destination:'Palm Springs', weight:58}
+    ,{origin: 'Philadelphia', destination:'Palm Springs', weight:30}
+    ,{origin: 'Seattle', destination:'Palm Springs', weight:34}
+    ,{origin: 'Calgary, AB', destination:'Palm Springs', weight:21}
+    ,{origin: 'Vancouver, BC', destination:'Palm Springs', weight:52}
     ];
 
   var linksByOrigin = {},
@@ -317,7 +317,7 @@ var flights=[
             .style("left", (d3.event.pageX - 30) + "px")     
             .style("top", (d3.event.pageY - 90) + "px")
             .select("#city-label")  
-            .html("<strong>" + d.iata + "</strong>" + "<br/>" + "count: " + d.count + "<br/>")      
+            .html("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>")      
                
           //Show the tooltip
           d3.select("#tooltip").classed("hidden", false);
@@ -330,7 +330,7 @@ var flights=[
       .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { return path(arc(d)); })
-        .style("stroke-width", function(d) { return (d.weight) + "px";});
+        .style("stroke-width", function(d) { return (d.weight/13) + "px";});
 
 
     g.selectAll("circle")
