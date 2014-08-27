@@ -195,19 +195,17 @@ var usstatesjson = [
 
 usstatesjson.forEach (function (collection) {
   console.log(collection);
-
 });
 
-//d3.json("us-states.json", function(collection) { 
+
+d3.json("us-states.json", function(collection) { 
 usstatesjson.forEach(function(collection) {
-  console.log(collection);
   states.selectAll("path")
       .data(collection.features)
     .enter().append("svg:path")
       .attr("d", path);
+    console.log(collection.features)
 });
-
-//});
 
 
 var airports=[
