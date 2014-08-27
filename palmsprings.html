@@ -122,7 +122,6 @@ var flights=[
     ,{origin: 'Other', destination:'Palm Springs', count:82}
     ];
 
-//d3.tsv("/data/palmsprings/flights.tsv", function(flights) {
   var linksByOrigin = {},
       countByAirport = {},
       locationByAirport = {},
@@ -143,10 +142,9 @@ var flights=[
     countByAirport[destination] = (countByAirport[destination] || 0) + 1;
   });
 
-  d3.tsv("/data/palmsprings/airports.tsv", function(airports) {
+  //d3.tsv("/data/palmsprings/airports.tsv", function(airports) {
 
     // Only consider airports with at least one flight.
-    console.log("blah" + airports)
     airports = airports.filter(function(airport) {
       if (countByAirport[airport.iata]) {
         var location = [+airport.longitude, +airport.latitude];
@@ -199,8 +197,7 @@ var flights=[
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
-  });
-//});
+  //});
 
     </script>
   </body>
