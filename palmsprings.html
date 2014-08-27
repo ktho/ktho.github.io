@@ -199,7 +199,6 @@ usstatesjson.forEach (function (collection) {
 
 
 d3.json("us-states.json", function(collection) { 
-usstatesjson.forEach(function(collection) {
   states.selectAll("path")
       .data(collection.features)
     .enter().append("svg:path")
