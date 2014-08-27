@@ -330,13 +330,16 @@ var flights=[
       .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { return path(arc(d)); })
+        .style("stroke-width", 0)
+/*
         .style("stroke-width", function(d) { 
             if (d.weight > 10) {
               return (d.weight/11) + "px";
               }
               return 0
-            });
 
+            });
+*/
 
     g.selectAll("circle")
         .data(airports)
