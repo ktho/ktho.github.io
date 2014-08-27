@@ -105,7 +105,6 @@ var airports=[
     ,{iata: 'Seattle', latitude:47.2528768, longitude:-122.4442906, count:34}
     ,{iata: 'Calgary, AB', latitude:50.89019999999999, longitude:-113.9892, count:21}
     ,{iata: 'Vancouver, BC', latitude:49.27680000000001, longitude:-123.1469, count:52}
-    ,{iata: 'Other', latitude:33.8302961, longitude:-116.5452921, count:82}
     ];
 
 var flights=[
@@ -119,7 +118,6 @@ var flights=[
     ,{origin: 'Seattle', destination:'Palm Springs', count:34}
     ,{origin: 'Calgary, AB', destination:'Palm Springs', count:21}
     ,{origin: 'Vancouver, BC', destination:'Palm Springs', count:52}
-    ,{origin: 'Other', destination:'Palm Springs', count:82}
     ];
 
   var linksByOrigin = {},
@@ -148,6 +146,7 @@ var flights=[
     airports = airports.filter(function(airport) {
       if (countByAirport[airport.iata]) {
         var location = [+airport.longitude, +airport.latitude];
+
         locationByAirport[airport.iata] = location;
         positions.push(projection(location));
         return true;
