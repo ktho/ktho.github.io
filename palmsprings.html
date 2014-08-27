@@ -196,13 +196,13 @@ var usstates = '
 ';
 
 
-//d3.json("us-states.json", function(collection) {
-states = JSON.parse(usstates)
+d3.json("us-states.json", function(collection) { 
+  console.log(states)
   states.selectAll("path")
       .data(collection.features)
     .enter().append("svg:path")
       .attr("d", path);
-//});
+});
 
 
 var airports=[
