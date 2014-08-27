@@ -92,7 +92,37 @@ d3.json("us-states.json", function(collection) {
       .attr("d", path);
 });
 
-d3.tsv("/data/palmsprings/flights.tsv", function(flights) {
+
+var airports=[
+    {iata: 'Los Angeles', latitude:34.0522342, longitude:-118.2436849, count:491}
+    ,{iata: 'Palm Springs', latitude:33.8302961, longitude:-116.5452921, count:95}
+    ,{iata: 'San Diego', latitude:32.7153292, longitude:-117.1572551, count:88}
+    ,{iata: 'San Francisco', latitude:37.3393857, longitude:-121.8949555, count:111}
+    ,{iata: 'Atlanta', latitude:33.7489954, longitude:-84.3879824, count:112}
+    ,{iata: 'New York', latitude:40.7142691, longitude:-74.0059729, count:33}
+    ,{iata: 'Portland', latitude:45.5234515, longitude:-122.6762071, count:58}
+    ,{iata: 'Philadelphia', latitude:39.952335, longitude:-75.163789, count:30}
+    ,{iata: 'Seattle', latitude:47.2528768, longitude:-122.4442906, count:34}
+    ,{iata: 'Calgary, AB', latitude:50.89019999999999, longitude:-113.9892, count:21}
+    ,{iata: 'Vancouver, BC', latitude:49.27680000000001, longitude:-123.1469, count:52}
+    ,{iata: 'Other', latitude:33.8302961, longitude:-116.5452921, count:82}
+    ];
+
+var flights=[
+    {origin: 'Los Angeles', destination:'Palm Springs', count:491}
+    ,{origin: 'San Diego', destination:'Palm Springs', count:88}
+    ,{origin: 'San Francisco', destination:'Palm Springs', count:111}
+    ,{origin: 'Atlanta', destination:'Palm Springs', count:112}
+    ,{origin: 'New York', destination:'Palm Springs', count:33}
+    ,{origin: 'Portland', destination:'Palm Springs', count:58}
+    ,{origin: 'Philadelphia', destination:'Palm Springs', count:30}
+    ,{origin: 'Seattle', destination:'Palm Springs', count:34}
+    ,{origin: 'Calgary, AB', destination:'Palm Springs', count:21}
+    ,{origin: 'Vancouver, BC', destination:'Palm Springs', count:52}
+    ,{origin: 'Other', destination:'Palm Springs', count:82}
+    ];
+
+//d3.tsv("/data/palmsprings/flights.tsv", function(flights) {
   var linksByOrigin = {},
       countByAirport = {},
       locationByAirport = {},
@@ -160,7 +190,6 @@ d3.tsv("/data/palmsprings/flights.tsv", function(flights) {
             if (d.iata === "Palm Springs") {
               return 15;             
             }
-            console.log(this)
             return Math.sqrt([d.count])/1.25;
           })
         .style("fill", function(d, i) {
@@ -171,45 +200,8 @@ d3.tsv("/data/palmsprings/flights.tsv", function(flights) {
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
         .sort(function(a, b) { return countByAirport[b.iata] - countByAirport[a.iata]; });
   });
-});
+//});
 
     </script>
-    <script>
-    var airports=[
-    {iata: 'Los Angeles', latitude:34.0522342, longitude:-118.2436849, count:491}
-    ,{iata: 'Palm Springs', latitude:33.8302961, longitude:-116.5452921, count:95}
-    ,{iata: 'San Diego', latitude:32.7153292, longitude:-117.1572551, count:88}
-    ,{iata: 'San Francisco', latitude:37.3393857, longitude:-121.8949555, count:111}
-    ,{iata: 'Atlanta', latitude:33.7489954, longitude:-84.3879824, count:112}
-    ,{iata: 'New York', latitude:40.7142691, longitude:-74.0059729, count:33}
-    ,{iata: 'Portland', latitude:45.5234515, longitude:-122.6762071, count:58}
-    ,{iata: 'Philadelphia', latitude:39.952335, longitude:-75.163789, count:30}
-    ,{iata: 'Seattle', latitude:47.2528768, longitude:-122.4442906, count:34}
-    ,{iata: 'Calgary, AB', latitude:50.89019999999999, longitude:-113.9892, count:21}
-    ,{iata: 'Vancouver, BC', latitude:49.27680000000001, longitude:-123.1469, count:52}
-    ,{iata: 'Other', latitude:33.8302961, longitude:-116.5452921, count:82}
-    ]
-      .forEach(function(d) {
-        console.log(d); 
-      });
-
-    var flights=[
-    {origin: 'Los Angeles', destination:'Palm Springs', count:491}
-    ,{origin: 'San Diego', destination:'Palm Springs', count:88}
-    ,{origin: 'San Francisco', destination:'Palm Springs', count:111}
-    ,{origin: 'Atlanta', destination:'Palm Springs', count:112}
-    ,{origin: 'New York', destination:'Palm Springs', count:33}
-    ,{origin: 'Portland', destination:'Palm Springs', count:58}
-    ,{origin: 'Philadelphia', destination:'Palm Springs', count:30}
-    ,{origin: 'Seattle', destination:'Palm Springs', count:34}
-    ,{origin: 'Calgary, AB', destination:'Palm Springs', count:21}
-    ,{origin: 'Vancouver, BC', destination:'Palm Springs', count:52}
-    ,{origin: 'Other', destination:'Palm Springs', count:82}
-    ]
-      .forEach(function(d) {
-        //console.log(d); 
-      });
-
-    </script
   </body>
 </html>
