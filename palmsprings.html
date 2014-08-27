@@ -86,7 +86,7 @@ d3.select("input[type=checkbox]").on("change", function() {
 });
 
 d3.json("us-states.json", function(collection) { 
-  console.log(states)
+  console.log(collection)
   states.selectAll("path")
       .data(collection.features)
     .enter().append("svg:path")
