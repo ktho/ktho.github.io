@@ -345,13 +345,13 @@ var flights=[
         .attr("cy", function(d, i) { return positions[i][1]; })
         .attr("r", function(d, i) { 
             if (d.iata === "Palm Springs") {
-              return 13;             
+              return 5;             
             }
             return Math.sqrt([d.count])/1.25;
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
-              return "darkgreen";             
+              return "red";             
             }
         })
         //.attr("r", function(d, i) { return Math.sqrt(countByAirport[d.iata]); })
