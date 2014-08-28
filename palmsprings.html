@@ -330,7 +330,12 @@ var flights=[
       .enter().append("svg:path")
         .attr("class", "arc")
         .attr("d", function(d) { return path(arc(d)); })
-        .style("stroke-width", function(d) { console.log(d.weight); return (d.weight/13) + "px";});
+        .style("stroke-width", function(d) { 
+            if (d.weight > 10) {
+              return (d.weight/11) + "px";
+              }
+              return 0
+            });
 
 
     g.selectAll("circle")
