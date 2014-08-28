@@ -333,8 +333,8 @@ var flights=[
         .style("stroke-width", function(d) { 
 
             console.log(d)
-            if (d.count > 10) {
-              return (d.count/11) + "px";
+            if (d.weight > 10) {
+              return (d.weight/11) + "px";
               }
               return 0;
             });
