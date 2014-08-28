@@ -301,7 +301,6 @@ var flights=[
         .attr("class", "cell")
         .attr("d", function(d, i) { return "M" + polygons[i].join("L") + "Z"; })
         .on("mouseover", function(d, i) { 
-          d3.select("h2 span").text(d.iata + ": " + d.count); 
                 
           var xPosition = d3.select(this).attr("cx");
           var yPosition = d3.select(this).attr("cy");
@@ -344,7 +343,7 @@ var flights=[
             if (d.iata === "Palm Springs") {
               return 5;             
             }
-            return Math.sqrt([d.count])/1.25;
+            return d.area;
           })
         .style("fill", function(d, i) {
             if (d.iata === "Palm Springs") {
