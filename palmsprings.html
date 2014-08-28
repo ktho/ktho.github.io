@@ -245,16 +245,16 @@ var airports=[
     ];
 
 var flights=[
-    {origin: 'Los Angeles', destination:'Palm Springs', count:491}
-    ,{origin: 'San Diego', destination:'Palm Springs', count:88}
-    ,{origin: 'San Francisco', destination:'Palm Springs', count:111}
-    ,{origin: 'Atlanta', destination:'Palm Springs', count:112}
-    ,{origin: 'New York', destination:'Palm Springs', count:33}
-    ,{origin: 'Portland', destination:'Palm Springs', count:58}
-    ,{origin: 'Philadelphia', destination:'Palm Springs', count:30}
-    ,{origin: 'Seattle', destination:'Palm Springs', count:34}
-    ,{origin: 'Calgary, AB', destination:'Palm Springs', count:21}
-    ,{origin: 'Vancouver, BC', destination:'Palm Springs', count:52}
+    {origin: 'Los Angeles', destination:'Palm Springs', count:37.77}
+    ,{origin: 'San Diego', destination:'Palm Springs', count:6.77}
+    ,{origin: 'San Francisco', destination:'Palm Springs', count:8.54}
+    ,{origin: 'Atlanta', destination:'Palm Springs', count:8.62}
+    ,{origin: 'New York', destination:'Palm Springs', count:2.54}
+    ,{origin: 'Portland', destination:'Palm Springs', count:4.46}
+    ,{origin: 'Philadelphia', destination:'Palm Springs', count:2.3}
+    ,{origin: 'Seattle', destination:'Palm Springs', count:2.62}
+    ,{origin: 'Calgary, AB', destination:'Palm Springs', count:1.62}
+    ,{origin: 'Vancouver, BC', destination:'Palm Springs', count:4}
     ];
 
   var linksByOrigin = {},
@@ -329,7 +329,7 @@ var flights=[
 
             console.log(d)
             if (d.weight > 10) {
-              return (d.weight/13) + "px";
+              return (d.weight) + "px";
               }
               return 0;
             });
