@@ -328,7 +328,7 @@ var flights=[
         .style("stroke-width", function(d) { 
 
             console.log(d)
-            if (d.weight > 1) {
+            if (d.weight > 0) {
               return (Math.round(d.weight)) + "px";
               }
               return 0;
