@@ -331,6 +331,8 @@ var flights=[
         .attr("class", "arc")
         .attr("d", function(d) { return path(arc(d)); })
         .style("stroke-width", function(d) { 
+
+            console.log(d)
             if (d.weight > 10) {
               return (d.weight/11) + "px";
               }
