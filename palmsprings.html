@@ -319,6 +319,7 @@ var flights=[
             .select("#city-label")  
             .html( function(d, i) {
               tiptext = ("<strong>" + d.iata + "</strong>" + "<br/>");
+              console.log(d.iata);
               if (d.iata !== "Palm Springs") {
                 tiptext += ("percentage: " + d.perc + "%<br/>");
                 }
