@@ -311,13 +311,20 @@ var flights=[
           var xPosition = d3.select(this).attr("cx");
           var yPosition = d3.select(this).attr("cy");
 
+          //Handle Text in the tooltip
+          tiptext = ("<strong>" + d.iata + "</strong>" + "<br/>");
+          
+          if (d.iata !== "Palm Springs") {
+              tiptext += ("percentage: " + d.perc + "%<br/>");
+              }
+          
           //Update the tooltip position and value
           d3.select("#tooltip")
           //Show the tooltip above where the mouse triggers the event
             .style("left", (d3.event.pageX - 30) + "px")     
-            .style("top", (d3.event.pageY - 90) + "px")
+            .style("top", (d3.event.pageY - 90) + "px");
             .select("#city-label")
-            .html("<strong>" + d.iata + "</strong>" + "<br/>");
+            .html(tiptext);
             //.style("html", function(d, i){
             //    return ("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>");
             //})
