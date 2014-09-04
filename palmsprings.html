@@ -317,15 +317,12 @@ var flights=[
           if (d.iata !== "Palm Springs") {
               tiptext += ("percentage: " + d.perc + "%<br/>");
               }
-          
-          console.log(positions[i][0]);
-          console.log(positions[i][1]);
 
           //Update the tooltip position and value
           d3.select("#tooltip")
           //Show the tooltip above where the mouse triggers the event
             .style("left", (positions[i][0] - 30) + "px")     
-            .style("top", (positions[i][1] - 30) + "px")
+            .style("top", (positions[i][1] - 90) + "px")
             .select("#city-label")
             .html(tiptext);
           
