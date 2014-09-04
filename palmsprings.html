@@ -318,6 +318,8 @@ var flights=[
               tiptext += ("percentage: " + d.perc + "%<br/>");
               }
           
+          console.log(polygons[i])
+          
           //Update the tooltip position and value
           d3.select("#tooltip")
           //Show the tooltip above where the mouse triggers the event
@@ -325,24 +327,9 @@ var flights=[
             .style("top", (d3.event.pageY - 90) + "px")
             .select("#city-label")
             .html(tiptext);
-            //.style("html", function(d, i){
-            //    return ("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>");
-            //})
-            //.html("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>") 
-            //.html( function(d, i) {
-              // console.log(d);
-              // tiptext = ("<strong>" + d.iata + "</strong>" + "<br/>");
-              // if (d.iata !== "Palm Springs") {
-              //   tiptext += ("percentage: " + d.perc + "%<br/>");
-              //   }
-              //return tiptext;
-              //return ("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>");      
-              //}) 
           
           //Show the tooltip
           d3.select("#tooltip").classed("hidden", false);
-
-
       });
 
     g.selectAll("path.arc")
