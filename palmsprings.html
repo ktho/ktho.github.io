@@ -317,10 +317,7 @@ var flights=[
             .style("left", (d3.event.pageX - 30) + "px")     
             .style("top", (d3.event.pageY - 90) + "px")
             .select("#city-label")
-            .html( function(d, i) {
-              console.log(d);
-              return ("<strong>" + d.iata + "</strong>" + "<br/>");
-            }); 
+            .html("<strong>" + d.iata + "</strong>" + "<br/>");
             //.style("html", function(d, i){
             //    return ("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>");
             //})
