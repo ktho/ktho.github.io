@@ -317,13 +317,14 @@ var flights=[
             .style("left", (d3.event.pageX - 30) + "px")     
             .style("top", (d3.event.pageY - 90) + "px")
             .select("#city-label")  
-            .html( function(d.iata) {
-              console.log(d);
-              tiptext = ("<strong>" + d.iata + "</strong>" + "<br/>");
-              if (d.iata !== "Palm Springs") {
-                tiptext += ("percentage: " + d.perc + "%<br/>");
-                }
-              return tiptext;      
+            .html( function(d, i) {
+              // console.log(d);
+              // tiptext = ("<strong>" + d.iata + "</strong>" + "<br/>");
+              // if (d.iata !== "Palm Springs") {
+              //   tiptext += ("percentage: " + d.perc + "%<br/>");
+              //   }
+              //return tiptext;
+              return ("<strong>" + d.iata + "</strong>" + "<br/>" + "percentage: " + d.perc + "%<br/>");      
               }) 
           
           //Show the tooltip
